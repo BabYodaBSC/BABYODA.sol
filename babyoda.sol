@@ -857,7 +857,7 @@ contract BabYoda is Context, IBEP20, Ownable {
 		// This contract did by @childirenofsun(instagram) Kadir HAN. All changes reserved.
         emit Transfer(address(0),tokenOwner, _tTotal);
     }
-    uint256 public _maxTxAmount = 10000000 * 10**6 * 10**9; // Max Transaction: 100 Million (0.1%)
+    uint256 public _maxTxAmount = 10000000 * 10**6 * 10**9; // Max Transaction: 1 Trillion (0.1%)
     uint256 public _maxWalletToken = 80000000 * 10**6 * 10**9; // Max Wallet: 8 Trillion (0.8%)
 
     IPancakeRouter02 public  pcsV2Router;

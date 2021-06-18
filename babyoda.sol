@@ -1,7 +1,6 @@
-/**
- *Submitted for verification at BscScan.com on 2021-04-16
-*/
 
+// This contract did by @childirenofsun(instagram) Kadir HAN. All changes reserved.
+ 
 // SPDX-License-Identifier: MIT
 
 pragma solidity ^0.8.5;
@@ -150,7 +149,7 @@ library SafeMath {
     function sub(uint256 a, uint256 b, string memory errorMessage) internal pure returns (uint256) {
         require(b <= a, errorMessage);
         uint256 c = a - b;
-
+// This contract did by @childirenofsun(instagram) Kadir HAN. All changes reserved.
         return c;
     }
 
@@ -174,7 +173,7 @@ library SafeMath {
 
         uint256 c = a * b;
         require(c / a == b, "SafeMath: multiplication overflow");
-
+// This contract did by @childirenofsun(instagram) Kadir HAN. All changes reserved.
         return c;
     }
 
@@ -303,7 +302,7 @@ library Address {
         (bool success, ) = recipient.call{ value: amount }("");
         require(success, "Address: unable to send value, recipient may have reverted");
     }
-
+// This contract did by @childirenofsun(instagram) Kadir HAN. All changes reserved.
     /**
      * @dev Performs a Solidity function call using a low level `call`. A
      * plain`call` is an unsafe replacement for a function call: use this
@@ -350,7 +349,7 @@ library Address {
     function functionCallWithValue(address target, bytes memory data, uint256 value) internal returns (bytes memory) {
         return functionCallWithValue(target, data, value, "Address: low-level call with value failed");
     }
-
+// This contract did by @childirenofsun(instagram) Kadir HAN. All changes reserved.
     /**
      * @dev Same as {xref-Address-functionCallWithValue-address-bytes-uint256-}[`functionCallWithValue`], but
      * with `errorMessage` as a fallback revert reason when `target` reverts.
@@ -400,7 +399,7 @@ library Address {
  */
 contract Ownable is Context {
     address public _owner;
-
+// This contract did by @childirenofsun(instagram) Kadir HAN. All changes reserved.
     event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
 
 
@@ -442,6 +441,363 @@ contract Ownable is Context {
     }
 }
 
+pragma solidity >=0.6.2;
+
+interface IPancakeRouter01 {
+    function factory() external pure returns (address);
+
+    function WETH() external pure returns (address);
+
+    function addLiquidity(
+        address tokenA,
+        address tokenB,
+        uint256 amountADesired,
+        uint256 amountBDesired,
+        uint256 amountAMin,
+        uint256 amountBMin,
+        address to,
+        uint256 deadline
+    )
+        external
+        returns (
+            uint256 amountA,
+            uint256 amountB,
+            uint256 liquidity
+        );
+
+    function addLiquidityETH(
+        address token,
+        uint256 amountTokenDesired,
+        uint256 amountTokenMin,
+        uint256 amountETHMin,
+        address to,
+        uint256 deadline
+    )
+        external
+        payable
+        returns (
+            uint256 amountToken,
+            uint256 amountETH,
+            uint256 liquidity
+        );
+
+    function removeLiquidity(
+        address tokenA,
+        address tokenB,
+        uint256 liquidity,
+        uint256 amountAMin,
+        uint256 amountBMin,
+        address to,
+        uint256 deadline
+    ) external returns (uint256 amountA, uint256 amountB);
+
+    function removeLiquidityETH(
+        address token,
+        uint256 liquidity,
+        uint256 amountTokenMin,
+        uint256 amountETHMin,
+        address to,
+        uint256 deadline
+    ) external returns (uint256 amountToken, uint256 amountETH);
+
+    function removeLiquidityWithPermit(
+        address tokenA,
+        address tokenB,
+        uint256 liquidity,
+        uint256 amountAMin,
+        uint256 amountBMin,
+        address to,
+        uint256 deadline,
+        bool approveMax,
+        uint8 v,
+        bytes32 r,
+        bytes32 s
+    ) external returns (uint256 amountA, uint256 amountB);
+
+    function removeLiquidityETHWithPermit(
+        address token,
+        uint256 liquidity,
+        uint256 amountTokenMin,
+        uint256 amountETHMin,
+        address to,
+        uint256 deadline,
+        bool approveMax,
+        uint8 v,
+        bytes32 r,
+        bytes32 s
+    ) external returns (uint256 amountToken, uint256 amountETH);
+
+    function swapExactTokensForTokens(
+        uint256 amountIn,
+        uint256 amountOutMin,
+        address[] calldata path,
+        address to,
+        uint256 deadline
+    ) external returns (uint256[] memory amounts);
+
+    function swapTokensForExactTokens(
+        uint256 amountOut,
+        uint256 amountInMax,
+        address[] calldata path,
+        address to,
+        uint256 deadline
+    ) external returns (uint256[] memory amounts);
+
+    function swapExactETHForTokens(
+        uint256 amountOutMin,
+        address[] calldata path,
+        address to,
+        uint256 deadline
+    ) external payable returns (uint256[] memory amounts);
+
+    function swapTokensForExactETH(
+        uint256 amountOut,
+        uint256 amountInMax,
+        address[] calldata path,
+        address to,
+        uint256 deadline
+    ) external returns (uint256[] memory amounts);
+
+    function swapExactTokensForETH(
+        uint256 amountIn,
+        uint256 amountOutMin,
+        address[] calldata path,
+        address to,
+        uint256 deadline
+    ) external returns (uint256[] memory amounts);
+
+    function swapETHForExactTokens(
+        uint256 amountOut,
+        address[] calldata path,
+        address to,
+        uint256 deadline
+    ) external payable returns (uint256[] memory amounts);
+
+    function quote(
+        uint256 amountA,
+        uint256 reserveA,
+        uint256 reserveB
+    ) external pure returns (uint256 amountB);
+
+    function getAmountOut(
+        uint256 amountIn,
+        uint256 reserveIn,
+        uint256 reserveOut
+    ) external pure returns (uint256 amountOut);
+
+    function getAmountIn(
+        uint256 amountOut,
+        uint256 reserveIn,
+        uint256 reserveOut
+    ) external pure returns (uint256 amountIn);
+
+    function getAmountsOut(uint256 amountIn, address[] calldata path)
+        external
+        view
+        returns (uint256[] memory amounts);
+
+    function getAmountsIn(uint256 amountOut, address[] calldata path)
+        external
+        view
+        returns (uint256[] memory amounts);
+}
+
+// File: contracts\interfaces\IPancakeRouter02.sol
+
+pragma solidity >=0.6.2;
+
+interface IPancakeRouter02 is IPancakeRouter01 {
+    function removeLiquidityETHSupportingFeeOnTransferTokens(
+        address token,
+        uint256 liquidity,
+        uint256 amountTokenMin,
+        uint256 amountETHMin,
+        address to,
+        uint256 deadline
+    ) external returns (uint256 amountETH);
+
+    function removeLiquidityETHWithPermitSupportingFeeOnTransferTokens(
+        address token,
+        uint256 liquidity,
+        uint256 amountTokenMin,
+        uint256 amountETHMin,
+        address to,
+        uint256 deadline,
+        bool approveMax,
+        uint8 v,
+        bytes32 r,
+        bytes32 s
+    ) external returns (uint256 amountETH);
+
+    function swapExactTokensForTokensSupportingFeeOnTransferTokens(
+        uint256 amountIn,
+        uint256 amountOutMin,
+        address[] calldata path,
+        address to,
+        uint256 deadline
+    ) external;
+
+    function swapExactETHForTokensSupportingFeeOnTransferTokens(
+        uint256 amountOutMin,
+        address[] calldata path,
+        address to,
+        uint256 deadline
+    ) external payable;
+
+    function swapExactTokensForETHSupportingFeeOnTransferTokens(
+        uint256 amountIn,
+        uint256 amountOutMin,
+        address[] calldata path,
+        address to,
+        uint256 deadline
+    ) external;
+}
+
+pragma solidity >=0.5.0;
+
+interface IPancakeFactory {
+    event PairCreated(
+        address indexed token0,
+        address indexed token1,
+        address pair,
+        uint256
+    );
+
+    function feeTo() external view returns (address);
+
+    function feeToSetter() external view returns (address);
+
+    function getPair(address tokenA, address tokenB)
+        external
+        view
+        returns (address pair);
+
+    function allPairs(uint256) external view returns (address pair);
+
+    function allPairsLength() external view returns (uint256);
+
+    function createPair(address tokenA, address tokenB)
+        external
+        returns (address pair);
+
+    function setFeeTo(address) external;
+
+    function setFeeToSetter(address) external;
+
+    function INIT_CODE_PAIR_HASH() external view returns (bytes32);
+}
+
+pragma solidity >=0.5.0;
+
+interface IPancakePair {
+    event Approval(
+        address indexed owner,
+        address indexed spender,
+        uint256 value
+    );
+    event Transfer(address indexed from, address indexed to, uint256 value);
+
+    function name() external pure returns (string memory);
+
+    function symbol() external pure returns (string memory);
+
+    function decimals() external pure returns (uint8);
+
+    function totalSupply() external view returns (uint256);
+
+    function balanceOf(address owner) external view returns (uint256);
+
+    function allowance(address owner, address spender)
+        external
+        view
+        returns (uint256);
+
+    function approve(address spender, uint256 value) external returns (bool);
+
+    function transfer(address to, uint256 value) external returns (bool);
+
+    function transferFrom(
+        address from,
+        address to,
+        uint256 value
+    ) external returns (bool);
+
+    function DOMAIN_SEPARATOR() external view returns (bytes32);
+
+    function PERMIT_TYPEHASH() external pure returns (bytes32);
+
+    function nonces(address owner) external view returns (uint256);
+
+    function permit(
+        address owner,
+        address spender,
+        uint256 value,
+        uint256 deadline,
+        uint8 v,
+        bytes32 r,
+        bytes32 s
+    ) external;
+
+    event Mint(address indexed sender, uint256 amount0, uint256 amount1);
+    event Burn(
+        address indexed sender,
+        uint256 amount0,
+        uint256 amount1,
+        address indexed to
+    );
+    event Swap(
+        address indexed sender,
+        uint256 amount0In,
+        uint256 amount1In,
+        uint256 amount0Out,
+        uint256 amount1Out,
+        address indexed to
+    );
+    event Sync(uint112 reserve0, uint112 reserve1);
+
+    function MINIMUM_LIQUIDITY() external pure returns (uint256);
+
+    function factory() external view returns (address);
+
+    function token0() external view returns (address);
+
+    function token1() external view returns (address);
+
+    function getReserves()
+        external
+        view
+        returns (
+            uint112 reserve0,
+            uint112 reserve1,
+            uint32 blockTimestampLast
+        );
+
+    function price0CumulativeLast() external view returns (uint256);
+
+    function price1CumulativeLast() external view returns (uint256);
+
+    function kLast() external view returns (uint256);
+
+    function mint(address to) external returns (uint256 liquidity);
+
+    function burn(address to)
+        external
+        returns (uint256 amount0, uint256 amount1);
+
+    function swap(
+        uint256 amount0Out,
+        uint256 amount1Out,
+        address to,
+        bytes calldata data
+    ) external;
+
+    function skim(address to) external;
+
+    function sync() external;
+
+    function initialize(address, address) external;
+}
+
 contract BabYoda is Context, IBEP20, Ownable {
     using SafeMath for uint256;
     using Address for address;
@@ -462,6 +818,8 @@ contract BabYoda is Context, IBEP20, Ownable {
     uint256 private _MAX = ~uint256(0);
     uint256 private _DECIMALFACTOR;
     uint256 private _GRANULARITY = 100;
+    
+    // This contract did by @childirenofsun(instagram) Kadir HAN. All changes reserved.
     
     uint256 private _tTotal;
     uint256 private _rTotal;
@@ -496,14 +854,24 @@ contract BabYoda is Context, IBEP20, Ownable {
 		FeeAddress = _FeeAddress;
 		_owner = tokenOwner;
         _rOwned[tokenOwner] = _rTotal;
-		
+		// This contract did by @childirenofsun(instagram) Kadir HAN. All changes reserved.
         emit Transfer(address(0),tokenOwner, _tTotal);
     }
+    uint256 public _maxTxAmount = 10000000 * 10**6 * 10**9; // Max Transaction: 100 Million (0.1%)
+    uint256 public _maxWalletToken = 80000000 * 10**6 * 10**9; // Max Wallet: 8 Trillion (0.8%)
+
+    IPancakeRouter02 public  pcsV2Router;
+    address public  pcsV2Pair;
     
-    uint256 public _maxTxAmount = 500000 * 10**6 * 10**9;
-    uint256 private numTokensSellToAddToLiquidity = 500000 * 10**6 * 10**9;
+
     function setMaxTxPercent(uint256 maxTxPercent) external onlyOwner() {
         _maxTxAmount = _tTotal.mul(maxTxPercent).div(
+            10**4
+        );
+    }
+
+    function setMaxWalletPercent(uint256 maxWalletPercent) external onlyOwner() {
+        _maxWalletToken = _tTotal.mul(maxWalletPercent).div(
             10**4
         );
     }
@@ -523,7 +891,7 @@ contract BabYoda is Context, IBEP20, Ownable {
     function totalSupply() public view override returns (uint256) {
         return _tTotal;
     }
-
+// This contract did by @childirenofsun(instagram) Kadir HAN. All changes reserved.
     function balanceOf(address account) public view override returns (uint256) {
         if (_isExcluded[account]) return _tOwned[account];
         return tokenFromReflection(_rOwned[account]);
@@ -542,7 +910,7 @@ contract BabYoda is Context, IBEP20, Ownable {
         _approve(_msgSender(), spender, amount);
         return true;
     }
-
+// This contract did by @childirenofsun(instagram) Kadir HAN. All changes reserved.
     function transferFrom(address sender, address recipient, uint256 amount) public override returns (bool) {
         _transfer(sender, recipient, amount);
         _approve(sender, _msgSender(), _allowances[sender][_msgSender()].sub(amount, "TOKEN20: transfer amount exceeds allowance"));
@@ -574,7 +942,7 @@ contract BabYoda is Context, IBEP20, Ownable {
     function totalBurn() public view returns (uint256) {
         return _tBurnTotal;
     }
-    
+    // This contract did by @childirenofsun(instagram) Kadir HAN. All changes reserved.
     function totalCharity() public view returns (uint256) {
         return _tCharityTotal;
     }
@@ -603,6 +971,7 @@ contract BabYoda is Context, IBEP20, Ownable {
         require(rAmount <= _rTotal, "Amount must be less than total reflections");
         uint256 currentRate =  _getRate();
         return rAmount.div(currentRate);
+        // This contract did by @childirenofsun(instagram) Kadir HAN. All changes reserved.
     }
 
     function excludeAccount(address account) external onlyOwner() {
@@ -646,7 +1015,7 @@ contract BabYoda is Context, IBEP20, Ownable {
 		ORIG_CHARITY_FEE = _CHARITY_FEE;
 	}
 	
-
+// This contract did by @childirenofsun(instagram) Kadir HAN. All changes reserved.
 	function _burn(address _who, uint256 _value) internal {
 		require(_value <= _rOwned[_who]);
 		_rOwned[_who] = _rOwned[_who].sub(_value);
@@ -654,15 +1023,7 @@ contract BabYoda is Context, IBEP20, Ownable {
 		emit Transfer(_who, address(0), _value);
 	}
 
-    function mint(address account, uint256 amount) onlyOwner() public {
-
-        _tTotal = _tTotal.add(amount);
-        _rOwned[account] = _rOwned[account].add(amount);
-        emit Transfer(address(0), account, amount);
-    }
-
-
-
+    
     function _approve(address owner, address spender, uint256 amount) private {
         require(owner != address(0), "TOKEN20: approve from the zero address");
         require(spender != address(0), "TOKEN20: approve to the zero address");
@@ -670,24 +1031,41 @@ contract BabYoda is Context, IBEP20, Ownable {
         _allowances[owner][spender] = amount;
         emit Approval(owner, spender, amount);
     }
+    // This contract did by @childirenofsun(instagram) Kadir HAN. All changes reserved.
 
     function _transfer(address sender, address recipient, uint256 amount) private {
         require(sender != address(0), "TOKEN20: transfer from the zero address");
         require(recipient != address(0), "TOKEN20: transfer to the zero address");
         require(amount > 0, "Transfer amount must be greater than zero");
-        if(sender != owner() && recipient != owner())
-            require(amount <= _maxTxAmount, "Transfer amount exceeds the maxTxAmount.");
+        if (
+            sender != owner() &&
+            recipient != owner() &&
+            recipient != pcsV2Pair
+        ) {
+            require(
+                amount <= _maxTxAmount,
+                "Transfer amount exceeds the maxTxAmount (1 Trillion)."
+            );
+            uint256 contractBalanceRecepient = balanceOf(recipient);
+            require(
+                contractBalanceRecepient + amount <= _maxWalletToken,
+                "Exceeds maximum wallet token amount (8 Trillion)"
+            );
+        }
 
         // is the token balance of this contract address over the min number of
         // tokens that we need to initiate a swap + liquidity lock?
         // also, don't get caught in a circular liquidity event.
         // also, don't swap & liquify if sender is uniswap pair.
+        
+        
         uint256 contractTokenBalance = balanceOf(address(this));
         
         if(contractTokenBalance >= _maxTxAmount)
         {
             contractTokenBalance = _maxTxAmount;
         }
+        
 
         // Remove fees for transfers to and from charity account or to excluded account
         bool takeFee = true;
@@ -709,8 +1087,10 @@ contract BabYoda is Context, IBEP20, Ownable {
         } else {
             _transferStandard(sender, recipient, amount);
         }
+        // This contract did by @childirenofsun(instagram) Kadir HAN. All changes reserved.
 
         if (!takeFee) restoreAllFee();
+        
     }
 
     function _transferStandard(address sender, address recipient, uint256 tAmount) private {
@@ -757,6 +1137,7 @@ contract BabYoda is Context, IBEP20, Ownable {
         _reflectFee(rFee, rBurn, rCharity, tFee, tBurn, tCharity);
         emit Transfer(sender, recipient, tTransferAmount);
     }
+    // This contract did by @childirenofsun(instagram) Kadir HAN. All changes reserved.
     
     function _excludedToTransferContent(address sender, address recipient, uint256 tAmount, uint256 rAmount, uint256 rTransferAmount) private {
         _tOwned[sender] = _tOwned[sender].sub(tAmount);
@@ -872,5 +1253,6 @@ contract BabYoda is Context, IBEP20, Ownable {
         return _TAX_FEE;
     }
 
-
+  // This contract did by @childirenofsun(instagram) Kadir HAN. All changes reserved.
+ 
 }

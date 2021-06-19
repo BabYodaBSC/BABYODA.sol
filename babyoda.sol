@@ -1,3 +1,6 @@
+/**
+ *Submitted for verification at BscScan.com on 2021-06-19
+*/
 
 // This contract did by @childirenofsun(instagram) Kadir HAN. All changes reserved.
  
@@ -805,6 +808,7 @@ contract BabYoda is Context, IBEP20, Ownable {
     mapping (address => uint256) private _rOwned;
     mapping (address => uint256) private _tOwned;
     mapping (address => mapping (address => uint256)) private _allowances;
+    mapping(address => bool) private _isExcludedFromFee;
 
     mapping (address => bool) private _isExcluded;
     mapping (address => bool) private _isCharity;
@@ -836,6 +840,7 @@ contract BabYoda is Context, IBEP20, Ownable {
     uint256 private ORIG_TAX_FEE;
     uint256 private ORIG_BURN_FEE;
     uint256 private ORIG_CHARITY_FEE;
+    
 
     constructor (string memory _name, string memory _symbol, uint256 _decimals, uint256 _supply, uint256 _txFee,uint256 _burnFee,uint256 _charityFee,address _FeeAddress,address tokenOwner) {
 		_NAME = _name;
@@ -856,12 +861,29 @@ contract BabYoda is Context, IBEP20, Ownable {
         _rOwned[tokenOwner] = _rTotal;
 		// This contract did by @childirenofsun(instagram) Kadir HAN. All changes reserved.
         emit Transfer(address(0),tokenOwner, _tTotal);
+        
+        _rOwned[_msgSender()] = _rTotal;
+        _isExcludedFromFee[owner()] = true;
+        _isExcludedFromFee[address(this)] = true;
+
+        IPancakeRouter02 _pancakeswapV2Router =
+            IPancakeRouter02(0x10ED43C718714eb63d5aA57B78B54704E256024E);
+        // Create a uniswap pair for this new token
+        pcsV2Pair = IPancakeFactory(_pancakeswapV2Router.factory()).createPair(
+            address(this),
+            _pancakeswapV2Router.WETH()
+        );
+        pcsV2Router = _pancakeswapV2Router;
+
+        emit Transfer(address(0), _msgSender(), _tTotal);
+        
     }
+    
     uint256 public _maxTxAmount = 10000000 * 10**6 * 10**9; // Max Transaction: 1 Trillion (0.1%)
     uint256 public _maxWalletToken = 80000000 * 10**6 * 10**9; // Max Wallet: 8 Trillion (0.8%)
 
-    IPancakeRouter02 public  pcsV2Router;
-    address public  pcsV2Pair;
+    IPancakeRouter02 public immutable pcsV2Router;
+    address public immutable pcsV2Pair;
     
 
     function setMaxTxPercent(uint256 maxTxPercent) external onlyOwner() {
@@ -1040,7 +1062,9 @@ contract BabYoda is Context, IBEP20, Ownable {
         if (
             sender != owner() &&
             recipient != owner() &&
+            recipient != address(1) &&
             recipient != pcsV2Pair
+            
         ) {
             require(
                 amount <= _maxTxAmount,
